@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+
+
 """
 Module that converts a Markdown file to HTML.
 """
@@ -34,4 +36,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
