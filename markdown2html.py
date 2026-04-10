@@ -1,12 +1,29 @@
 #!/usr/bin/python3
-
-
 """
 Module that converts a Markdown file to HTML.
+Handles headings from # to ######
 """
 
 import sys
 import os
+
+
+def convert_line(line):
+    """Convert a single markdown line to HTML"""
+    line = line.rstrip()
+
+    # Gestion des headings (# à ######)
+    if line.startswith("#"):
+        count = 0
+        while count < len(line) and line[count] == "#":
+            count += 1
+
+        # Vérifie qu'il y a un espace après les #
+        if count <= 6 and count < len(line) and line[count] == " ":
+            content = line[count + 1:]
+            return f"<h{count}>{content}</h{count}>"
+
+    return line
 
 
 def main():
@@ -23,12 +40,13 @@ def main():
         print(f"Missing {input_file}", file=sys.stderr)
         sys.exit(1)
 
-    # Read the Markdown file
     with open(input_file, "r", encoding="utf-8") as md_file:
-        content = md_file.read()
+        lines = md_file.readlines()
 
     with open(output_file, "w", encoding="utf-8") as html_file:
-        html_file.write(content)
+        for line in lines:
+            html_line = convert_line(line)
+            html_file.write(html_line + "\n")
 
     sys.exit(0)
 
