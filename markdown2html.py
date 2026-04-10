@@ -23,11 +23,10 @@ def main():
         print(f"Missing {input_file}", file=sys.stderr)
         sys.exit(1)
 
-    # Lire le fichier Markdown
+    # Read the Markdown file
     with open(input_file, "r", encoding="utf-8") as md_file:
         content = md_file.read()
 
-    # Pour cette tâche : copie simple (pas encore de conversion)
     with open(output_file, "w", encoding="utf-8") as html_file:
         html_file.write(content)
 
